@@ -8,5 +8,6 @@ class User < ApplicationRecord
 
   enum :role, { user: 0, admin: 1 }
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 4, maximum: 50 }
+  validates :phone, format: { with: /\A\+?\d{10,15}\z/ }, allow_blank: true
 end
