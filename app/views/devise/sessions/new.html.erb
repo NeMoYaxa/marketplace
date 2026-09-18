@@ -32,9 +32,9 @@
           <%= f.label :password, "Пароль" %>
           <%= link_to "Забыли пароль?", new_password_path(resource_name), class: "auth-inline-link" %>
         </div>
-        <div class="auth-password-wrap">
-          <%= f.password_field :password, id: "login-password", autocomplete: "current-password", placeholder: "Введите пароль" %>
-          <button type="button" class="password-toggle" data-password-toggle="login-password" aria-label="Показать пароль" title="Показать пароль">
+        <div class="auth-password-wrap" data-controller="password-visibility">
+          <%= f.password_field :password, id: "login-password", autocomplete: "current-password", placeholder: "Введите пароль", data: { password_visibility_target: "input" } %>
+          <button type="button" class="password-toggle" data-action="password-visibility#toggle" data-password-visibility-target="button" aria-label="Показать пароль" title="Показать пароль">
             <svg viewBox="0 0 32 32" aria-hidden="true">
               <path d="M4 16s4.4-7 12-7 12 7 12 7-4.4 7-12 7S4 16 4 16Z"></path>
               <circle cx="16" cy="16" r="3.5"></circle>
