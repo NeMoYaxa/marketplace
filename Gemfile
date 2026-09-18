@@ -65,3 +65,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 5.0"
+gem "json", "< 3.0"
+gem "tailwindcss-rails"
