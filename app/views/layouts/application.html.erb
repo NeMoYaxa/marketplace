@@ -22,7 +22,25 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="app-body">
+    <main class="auth-main">
+      <%= yield %>
+    </main>
+
+    <%= javascript_tag nonce: true do %>
+      document.addEventListener("click", function (event) {
+        const toggle = event.target.closest("[data-password-toggle]");
+        if (!toggle) return;
+
+        const input = document.getElementById(toggle.dataset.passwordToggle);
+        if (!input) return;
+
+        const isVisible = input.type === "text";
+        input.type = isVisible ? "password" : "text";
+        toggle.classList.toggle("is-visible", !isVisible);
+        toggle.setAttribute("aria-label", isVisible ? "Показать пароль" : "Скрыть пароль");
+        toggle.setAttribute("title", isVisible ? "Показать пароль" : "Скрыть пароль");
+      });
+    <% end %>
   </body>
 </html>
