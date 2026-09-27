@@ -11,6 +11,7 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 .app-body {
@@ -112,15 +113,6 @@ body {
 
 .auth-heading {
   margin: 40px 0 28px;
-}
-
-.auth-eyebrow {
-  margin: 0 0 11px;
-  color: #9f8aff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
 }
 
 .auth-heading h1 {
