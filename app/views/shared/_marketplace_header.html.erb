@@ -6,7 +6,10 @@
     </a>
 
     <form class="order-3 flex h-11 min-w-0 basis-full items-center gap-2.5 rounded-xl border border-[#292e45] bg-[#090c17]/70 px-3 md:order-none md:ml-auto md:basis-auto md:w-[min(100%,560px)]" action="/" method="get" role="search">
-      <span class="h-5 w-5 shrink-0 bg-[url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='10.8' cy='10.8' r='6.4' stroke='%23b2a4ff' stroke-width='2'/%3E%3Cpath d='m15.6 15.6 5 5' stroke='%2359d8d0' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E&quot;)] bg-center bg-no-repeat [background-size:20px_20px]"></span>
+      <svg class="h-5 w-5 shrink-0 text-[#b2a4ff] drop-shadow-[0_0_5px_rgba(156,140,255,0.28)]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.4" stroke="currentColor" stroke-width="2"></circle>
+        <path d="m15.6 15.6 5 5" stroke="#59d8d0" stroke-width="2.2" stroke-linecap="round"></path>
+      </svg>
       <input class="min-w-0 flex-1 border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-[#68718b]" type="search" name="query" value="<%= params[:query] %>" placeholder="Поиск по объявлениям" aria-label="Поиск по заголовку и описанию">
     </form>
 
@@ -22,7 +25,7 @@
           <%= render "shared/profile_menu" %>
         </details>
       <% else %>
-        <a class="text-[13px] text-[#b5b9ca]" href="/users/sign_in">Войти</a>
+        <a class="text-[13px] text-[#b5b9ca] transition-colors hover:text-[#c8bdff]" href="/users/sign_in">Войти</a>
         <%= render "shared/button", text: "Разместить объявление", url: "/users/sign_in", variant: :primary %>
       <% end %>
     </nav>

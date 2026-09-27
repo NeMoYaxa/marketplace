@@ -10,6 +10,7 @@
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
@@ -24,7 +25,7 @@
   </head>
 
   <body class="app-body">
-    <main class="auth-main">
+    <main class="min-h-screen">
       <%= yield %>
     </main>
   </body>

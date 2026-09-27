@@ -47,3 +47,9 @@ ru:
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
         phone: "Телефон"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              too_short: "слишком короткое (минимум %{count} символа)"
