@@ -1,0 +1,37 @@
+<% content_for :title, "Объявления рядом — marketplace" %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+<% end %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto flex min-h-[calc(100vh-78px)] w-[calc(100%-28px)] max-w-[1440px] flex-col px-0 pb-20 pt-10 md:w-[calc(100%-48px)]">
+    <section class="grid grid-cols-1 gap-5 rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 md:grid-cols-[1.5fr_1fr_.9fr] md:gap-[22px]">
+      <%= render "shared/filter_field", type: :price, label: "Цена, ₽" %>
+      <%= render "shared/filter_field", type: :select, label: "Город", options: ["Все города"] + Array(@cities) %>
+      <%= render "shared/filter_field", type: :select, label: "Сортировка", options: ["По дате"] %>
+    </section>
+
+    <div class="flex min-h-[52px] items-center gap-2" aria-label="Активные фильтры">
+      <% if params[:query].present? %><span class="rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]">«<%= params[:query] %>» <button type="button" aria-label="Убрать фильтр">×</button></span><% end %>
+      <% if params[:min_price].present? %><span class="rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]">от <%= params[:min_price] %> ₽ <button type="button" aria-label="Убрать фильтр">×</button></span><% end %>
+      <% if params[:max_price].present? %><span class="rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]">до <%= params[:max_price] %> ₽ <button type="button" aria-label="Убрать фильтр">×</button></span><% end %>
+      <% if params[:city].present? %><span class="rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]"><%= params[:city] %> <button type="button" aria-label="Убрать фильтр">×</button></span><% end %>
+    </div>
+
+    <% if @listings.present? %>
+      <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6" aria-label="Объявления">
+        <%= render partial: "shared/listing_card", collection: @listings, as: :listing %>
+      </section>
+    <% else %>
+      <section class="rounded-2xl border border-dashed border-[#303750] p-16 text-center">
+        <h2 class="text-[22px]">Ничего не найдено</h2>
+        <p class="my-2.5 mb-[22px] text-[13px] text-[#858da7]">Попробуйте изменить параметры поиска или сбросить фильтры.</p>
+        <%= render "shared/button", text: "Сбросить фильтры", url: "/", variant: :secondary %>
+      </section>
+    <% end %>
+
+    <%= render "shared/pagination" %>
+  </main>
+</div>

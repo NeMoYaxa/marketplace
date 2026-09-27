@@ -1,0 +1,18 @@
+<% total_pages = [@total_pages.to_i, 1].max %>
+<% current_page = [[params[:page].to_i, 1].max, total_pages].min %>
+<nav class="mt-auto flex items-center justify-center gap-1.5 pt-11" aria-label="Пагинация">
+  <% if total_pages == 1 %>
+    <span class="grid h-[34px] w-[34px] place-items-center rounded-lg bg-[#292345] text-xs text-[#c8bdff]">1</span>
+  <% else %>
+    <%= link_to "‹", root_path(request.query_parameters.merge(page: current_page - 1)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] #{'pointer-events-none opacity-35' if current_page == 1}", aria: { label: "Предыдущая страница" } %>
+    <% page_numbers = total_pages <= 5 ? (1..total_pages).to_a : [1, 2, 3, "...", total_pages] %>
+    <% page_numbers.each do |page_number| %>
+      <% if page_number == "..." %>
+        <span class="grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad]">…</span>
+      <% else %>
+        <%= link_to page_number, root_path(request.query_parameters.merge(page: page_number)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] #{'bg-[#292345] text-[#c8bdff]' if page_number == current_page}" %>
+      <% end %>
+    <% end %>
+    <%= link_to "›", root_path(request.query_parameters.merge(page: current_page + 1)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] #{'pointer-events-none opacity-35' if current_page == total_pages}", aria: { label: "Следующая страница" } %>
+  <% end %>
+</nav>

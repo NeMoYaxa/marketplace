@@ -1,0 +1,23 @@
+<% if type == :price %>
+  <div>
+    <span class="mb-2.5 block text-[11px] font-bold text-[#8d95ad]"><%= label %></span>
+    <div class="flex items-center gap-2">
+      <span class="flex-1">
+        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff]" type="text" placeholder="Мин." aria-label="Минимальная цена">
+      </span>
+      <span>—</span>
+      <span class="flex-1">
+        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff]" type="text" placeholder="Макс." aria-label="Максимальная цена">
+      </span>
+    </div>
+  </div>
+<% else %>
+  <label>
+    <span class="mb-2.5 block text-[11px] font-bold text-[#8d95ad]"><%= label %></span>
+    <select class="h-10 w-full appearance-none rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none focus:border-[#8c73ff]" aria-label="<%= label %>">
+      <% options.each do |option| %>
+        <option><%= option %></option>
+      <% end %>
+    </select>
+  </label>
+<% end %>

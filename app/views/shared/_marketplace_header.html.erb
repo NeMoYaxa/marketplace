@@ -1,0 +1,30 @@
+<header class="relative z-50 border-b border-white/10 bg-[#0a0d19]/90">
+  <div class="mx-auto flex min-h-[78px] w-[calc(100%-28px)] max-w-[1440px] flex-wrap items-center gap-4 py-4 md:w-[calc(100%-48px)] md:flex-nowrap md:gap-7 md:py-0">
+    <a class="flex shrink-0 items-center gap-2.5 text-base font-extrabold tracking-tight text-[#f7f8ff]" href="/" aria-label="Marketplace, на главную">
+      <span class="grid h-8 w-8 place-items-center rounded-[10px] bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-[#0c1020]">M</span>
+      <span class="hidden sm:inline">marketplace</span>
+    </a>
+
+    <form class="order-3 flex h-11 min-w-0 basis-full items-center gap-2.5 rounded-xl border border-[#292e45] bg-[#090c17]/70 px-3 md:order-none md:ml-auto md:basis-auto md:w-[min(100%,560px)]" action="/" method="get" role="search">
+      <span class="h-5 w-5 shrink-0 bg-[url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='10.8' cy='10.8' r='6.4' stroke='%23b2a4ff' stroke-width='2'/%3E%3Cpath d='m15.6 15.6 5 5' stroke='%2359d8d0' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E&quot;)] bg-center bg-no-repeat [background-size:20px_20px]"></span>
+      <input class="min-w-0 flex-1 border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-[#68718b]" type="search" name="query" value="<%= params[:query] %>" placeholder="Поиск по объявлениям" aria-label="Поиск по заголовку и описанию">
+    </form>
+
+    <nav class="ml-auto flex shrink-0 items-center gap-5 whitespace-nowrap" aria-label="Основная навигация">
+      <% if user_signed_in? %>
+        <%= render "shared/button", text: "Разместить объявление", url: "/listings/new", variant: :primary %>
+        <details class="group relative h-[34px] w-max shrink-0">
+          <summary class="flex h-[34px] cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+            <span class="grid h-[34px] w-[34px] place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-[13px] font-black text-[#0c1020]"><%= current_user.name.to_s.first&.upcase || "П" %></span>
+            <span class="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px] text-[#b9bdd0] max-md:hidden"><%= current_user.name %></span>
+            <span class="h-2 w-2 -translate-y-0.5 rotate-45 border-b-[1.5px] border-r-[1.5px] border-[#78809a] transition-transform group-open:translate-y-0.5 group-open:rotate-[225deg]"></span>
+          </summary>
+          <%= render "shared/profile_menu" %>
+        </details>
+      <% else %>
+        <a class="text-[13px] text-[#b5b9ca]" href="/users/sign_in">Войти</a>
+        <%= render "shared/button", text: "Разместить объявление", url: "/users/sign_in", variant: :primary %>
+      <% end %>
+    </nav>
+  </div>
+</header>
