@@ -1,3 +1,10 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="marketplace-gradient" x1="72" y1="48" x2="440" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A178FF"/>
+      <stop offset="1" stop-color="#31DDD1"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#marketplace-gradient)"/>
+  <text x="256" y="341" fill="#0C1020" font-family="Arial, Helvetica, sans-serif" font-size="270" font-weight="900" text-anchor="middle">M</text>
 </svg>
