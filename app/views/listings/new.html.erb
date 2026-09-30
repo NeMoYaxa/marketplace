@@ -1,0 +1,17 @@
+<% content_for :title, "Новое объявление — marketplace" %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto w-[calc(100%-28px)] max-w-3xl px-0 pb-20 pt-8 md:w-[calc(100%-48px)] md:pt-12">
+    <div class="mb-8">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[.16em] text-[#8e74ff]">Новое объявление</p>
+      <h1 class="text-[clamp(28px,5vw,38px)] font-bold leading-tight tracking-[-.04em] text-[#fbfbff]">Расскажите о товаре</h1>
+      <p class="mt-3 max-w-xl text-sm leading-6 text-[#8990aa]">Добавьте подробности и фотографии, чтобы покупатели быстрее нашли ваше объявление.</p>
+    </div>
+
+    <section class="rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 shadow-[0_24px_70px_rgba(0,0,0,.2)] sm:p-8">
+      <%= render "form" %>
+    </section>
+  </main>
+</div>
