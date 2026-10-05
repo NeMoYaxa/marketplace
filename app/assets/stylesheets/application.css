@@ -19,6 +19,53 @@ body {
   background: #080b14;
 }
 
+.marketplace-search {
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.marketplace-search:hover {
+  border-color: #4a5274;
+  box-shadow: 0 9px 22px rgba(104, 105, 255, .16);
+}
+
+.marketplace-search:focus-within {
+  border-color: #8c73ff;
+  background-color: rgba(10, 14, 28, .9);
+  box-shadow: 0 12px 28px rgba(104, 105, 255, .24), 0 0 0 4px rgba(140, 115, 255, .13);
+}
+
+.marketplace-logo-glow {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: -18px;
+  width: 76px;
+  height: 76px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(161, 120, 255, .42) 0, rgba(49, 221, 209, .16) 34%, rgba(161, 120, 255, 0) 72%);
+  filter: blur(8px);
+  transform: translateY(-50%);
+  animation: marketplace-logo-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes marketplace-logo-glow-pulse {
+  0%, 100% {
+    opacity: .7;
+    transform: translateY(-50%) scale(.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketplace-logo-glow {
+    animation: none;
+  }
+}
+
 @keyframes auth-card-in {
   from {
     opacity: 0;

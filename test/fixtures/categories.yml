@@ -1,13 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  slug: MyString
+  name: Electronics
+  slug: electronics
   position: 1
-  parent: one
 
 two:
-  name: MyString
-  slug: MyString
+  name: Books
+  slug: books
   position: 1
-  parent: two

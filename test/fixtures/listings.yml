@@ -1,19 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   user: one
   category: one
-  title: MyString
-  description: MyText
-  price: 9.99
-  status: 1
-  city: MyString
+  title: Used laptop
+  description: A working laptop
+  price: 50000
+  status: active
+  city: Moscow
 
 two:
   user: two
   category: two
-  title: MyString
-  description: MyText
-  price: 9.99
-  status: 1
-  city: MyString
+  title: Ruby book
+  description: A useful book
+  price: 1500
+  status: sold
+  city: Kazan
