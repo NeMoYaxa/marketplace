@@ -10,6 +10,12 @@
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+    <script>
+      (() => {
+        const theme = localStorage.getItem("marketplace-theme") || "dark";
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>

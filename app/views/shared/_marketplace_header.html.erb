@@ -1,6 +1,6 @@
 <header class="relative z-50 border-b border-white/10 bg-[#0a0d19]/90">
   <div class="mx-auto flex min-h-[78px] w-[calc(100%-28px)] max-w-[1440px] flex-wrap items-center gap-4 py-4 md:w-[calc(100%-48px)] md:flex-nowrap md:gap-7 md:py-0">
-    <a class="relative z-0 flex shrink-0 items-center gap-2.5 text-base font-extrabold tracking-tight text-[#f7f8ff]" href="/" aria-label="Marketplace, на главную">
+    <a class="marketplace-brand relative z-0 flex shrink-0 items-center gap-2.5 text-base font-extrabold tracking-tight text-[#f7f8ff]" href="/" aria-label="Marketplace, на главную">
       <span class="marketplace-logo-glow" aria-hidden="true"></span>
       <span class="relative z-10 grid h-8 w-8 place-items-center rounded-[10px] bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-[#0c1020]">M</span>
       <span class="relative z-10 hidden sm:inline">marketplace</span>
@@ -17,6 +17,15 @@
     <nav class="ml-auto flex shrink-0 items-center gap-5 whitespace-nowrap" aria-label="Основная навигация">
       <% if user_signed_in? %>
         <%= render "shared/button", text: "Разместить объявление", url: "/listings/new", variant: :primary %>
+        <button class="theme-toggle" type="button" data-controller="theme" data-action="click->theme#toggle" aria-label="Переключить светлую тему" title="Переключить тему">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 15.4A8.5 8.5 0 0 1 8.6 3.5 8.5 8.5 0 1 0 20.5 15.4Z"></path>
+          </svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+          </svg>
+        </button>
         <details class="group relative h-[34px] w-max shrink-0">
           <summary class="flex h-[34px] cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
             <span class="grid h-[34px] w-[34px] place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-[13px] font-black text-[#0c1020]"><%= current_user.name.to_s.first&.upcase || "П" %></span>
@@ -26,6 +35,10 @@
           <%= render "shared/profile_menu" %>
         </details>
       <% else %>
+        <button class="theme-toggle" type="button" data-controller="theme" data-action="click->theme#toggle" aria-label="Переключить светлую тему" title="Переключить тему">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.4A8.5 8.5 0 0 1 8.6 3.5 8.5 8.5 0 1 0 20.5 15.4Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+        </button>
         <a class="text-[13px] text-[#b5b9ca] transition-colors hover:text-[#c8bdff]" href="/users/sign_in">Войти</a>
         <%= render "shared/button", text: "Разместить объявление", url: "/users/sign_in", variant: :primary %>
       <% end %>
