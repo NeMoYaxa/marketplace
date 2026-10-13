@@ -1,0 +1,47 @@
+<% content_for :title, "#{@listing.title} — marketplace" %>
+<% image_urls = @listing.images.map { |image| url_for(image) } %>
+<% status_labels = { "active" => "В продаже", "sold" => "Продано", "archived" => "В архиве" } %>
+<% status_classes = {
+  "active" => "border-[#38d8cf]/30 bg-[#38d8cf]/10 text-[#69e5dc]",
+  "sold" => "border-[#ffb45c]/30 bg-[#ffb45c]/10 text-[#ffc982]",
+  "archived" => "border-[#8990aa]/30 bg-[#8990aa]/10 text-[#b8bed0]"
+} %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto w-[calc(100%-28px)] max-w-6xl px-0 pb-20 pt-6 md:w-[calc(100%-48px)] md:pt-8">
+    <nav class="mb-6 flex min-w-0 items-center gap-2 overflow-hidden text-xs text-[#8990aa] light:text-[#657087]" aria-label="Хлебные крошки">
+      <%= link_to "Главная", root_path, class: "shrink-0 transition hover:text-[#c8bdff] light:hover:text-[#5f48bd]" %>
+      <span aria-hidden="true">→</span>
+      <span class="shrink-0 max-w-[28vw] truncate"><%= @listing.category.name %></span>
+      <span aria-hidden="true">→</span>
+      <span class="min-w-0 truncate text-[#c6cbe0] light:text-[#4e5a72]" aria-current="page"><%= @listing.title %></span>
+    </nav>
+
+    <section class="grid items-start gap-7 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
+      <%= render "gallery", listing: @listing, image_urls: image_urls %>
+
+      <div class="lg:sticky lg:top-6">
+        <div class="rounded-2xl border border-[#252a40] bg-[#14182a]/80 p-5 shadow-[0_24px_70px_rgba(0,0,0,.18)] sm:p-7 light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.09)]">
+          <span class="inline-flex rounded-full border px-3 py-1 text-[11px] font-bold <%= status_classes.fetch(@listing.status) %>"><%= status_labels.fetch(@listing.status) %></span>
+          <h1 class="mt-4 break-words text-[clamp(26px,4vw,40px)] font-bold leading-[1.08] tracking-[-.035em] text-[#fbfbff] light:text-[#1c2435]"><%= @listing.title %></h1>
+          <p class="mt-5 text-[clamp(25px,4vw,34px)] font-extrabold tracking-[-.03em] text-white light:text-[#1c2435]"><%= @listing.price.present? ? "#{number_with_delimiter(@listing.price, delimiter: ' ')} ₽" : "Цена не указана" %></p>
+          <p class="mt-4 flex flex-wrap gap-x-2 gap-y-1 text-xs text-[#8990aa] light:text-[#657087]">
+            <span><%= @listing.city.presence || "Город не указан" %></span><span aria-hidden="true">·</span>
+            <span><%= l(@listing.created_at.to_date, format: :long) %></span><span aria-hidden="true">·</span>
+            <span><%= @listing.category.name %></span>
+          </p>
+
+          <%= render "actions", listing: @listing %>
+          <%= render "seller", user: @listing.user %>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-7 rounded-2xl border border-[#252a40] bg-[#14182a]/80 p-5 shadow-[0_24px_70px_rgba(0,0,0,.15)] sm:p-7 light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.08)]">
+      <h2 class="text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">Описание</h2>
+      <p class="mt-4 whitespace-pre-line break-words text-sm leading-7 text-[#b5bbce] light:text-[#59657c]"><%= @listing.description.presence || "Продавец не добавил описание" %></p>
+    </section>
+  </main>
+</div>

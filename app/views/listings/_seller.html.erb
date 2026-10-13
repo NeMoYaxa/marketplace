@@ -1,0 +1,14 @@
+<div class="mt-7 border-t border-[#252a40] pt-6 light:border-[#e6e9f0]" data-controller="seller">
+  <p class="mb-3 text-xs font-bold uppercase tracking-[.12em] text-[#8990aa] light:text-[#657087]">Продавец</p>
+  <div class="flex items-center gap-3">
+    <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-base font-black text-[#0c1020]"><%= user.name.to_s.first&.upcase || "П" %></span>
+    <div class="min-w-0">
+      <p class="truncate text-sm font-bold text-[#f5f7ff] light:text-[#1c2435]"><%= user.name %></p>
+      <p class="mt-1 truncate text-xs text-[#8990aa] light:text-[#657087]"><%= user.city.presence || "Город не указан" %> · На сайте с <%= l(user.created_at, format: "%B %Y") %></p>
+    </div>
+  </div>
+  <% if user.phone.present? %>
+    <button type="button" class="mt-4 min-h-11 w-full rounded-xl border border-[#3a4160] px-4 text-sm font-bold text-[#c6cbea] transition hover:border-[#8c73ff] hover:text-white light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#8c73ff] light:hover:text-[#5f48bd]" data-seller-target="button" data-action="click->seller#reveal">Показать телефон</button>
+    <a class="mt-3 hidden text-center text-sm font-bold text-[#5f48bd]" data-seller-target="phone" href="tel:<%= user.phone %>"><%= user.phone %></a>
+  <% end %>
+</div>

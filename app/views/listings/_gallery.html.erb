@@ -1,0 +1,22 @@
+<section data-controller="gallery" data-action="keydown->gallery#keydown touchstart->gallery#touchstart touchend->gallery#touchend" data-gallery-images-value="<%= image_urls.to_json %>" tabindex="0" class="min-w-0 outline-none">
+  <div class="relative aspect-[4/3] max-h-[70vh] overflow-hidden rounded-2xl border border-[#252a40] bg-[#1a2034] light:border-[#dce1eb] light:bg-[#f1f4f9]">
+    <% if image_urls.any? %>
+      <img src="<%= image_urls.first %>" alt="<%= listing.title %>" class="h-full w-full object-cover" data-gallery-target="image">
+      <button type="button" class="absolute left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-[#080b14]/65 text-xl text-white transition hover:bg-[#080b14]/85 disabled:pointer-events-none disabled:opacity-30 light:border-[#dce1eb] light:bg-white/85 light:text-[#1c2435]" data-gallery-target="previous" data-action="click->gallery#previous" aria-label="Предыдущее фото">‹</button>
+      <button type="button" class="absolute right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-[#080b14]/65 text-xl text-white transition hover:bg-[#080b14]/85 disabled:pointer-events-none disabled:opacity-30 light:border-[#dce1eb] light:bg-white/85 light:text-[#1c2435]" data-gallery-target="next" data-action="click->gallery#next" aria-label="Следующее фото">›</button>
+      <span class="absolute bottom-3 right-3 rounded-full border border-white/10 bg-[#080b14]/70 px-3 py-1 text-[11px] font-bold text-white" data-gallery-target="counter">1 / <%= image_urls.size %></span>
+    <% else %>
+      <div class="grid h-full place-items-center text-sm text-[#7f88a3] light:text-[#657087]">Нет фото</div>
+    <% end %>
+  </div>
+
+  <% if image_urls.any? %>
+    <div class="mt-3 flex gap-2 overflow-x-auto pb-1" data-gallery-target="thumbnails" aria-label="Миниатюры фотографий">
+      <% image_urls.each_with_index do |url, index| %>
+        <button type="button" class="h-16 w-20 shrink-0 overflow-hidden rounded-xl border-2 border-[#8c73ff] bg-[#1a2034] light:bg-[#f1f4f9] <%= "opacity-60" unless index.zero? %>" data-gallery-index="<%= index %>" data-action="click->gallery#select" aria-label="Показать фото <%= index + 1 %>">
+          <img src="<%= url %>" alt="" class="h-full w-full object-cover">
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+</section>
