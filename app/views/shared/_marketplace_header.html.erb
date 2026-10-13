@@ -27,7 +27,7 @@
           </svg>
         </button>
         <details class="group relative h-[34px] w-max shrink-0">
-          <summary class="flex h-[34px] cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+          <summary class="profile-trigger flex h-[34px] cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
             <span class="grid h-[34px] w-[34px] place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-[13px] font-black text-[#0c1020]"><%= current_user.name.to_s.first&.upcase || "П" %></span>
             <span class="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px] text-[#b9bdd0] max-md:hidden"><%= current_user.name %></span>
             <span class="h-2 w-2 -translate-y-0.5 rotate-45 border-b-[1.5px] border-r-[1.5px] border-[#78809a] transition-transform group-open:translate-y-0.5 group-open:rotate-[225deg]"></span>
