@@ -1,16 +1,16 @@
-<div class="mt-[26px] flex flex-wrap items-center justify-center gap-1 text-center text-xs leading-[1.6] text-[#7e869f]">
+<div class="mt-[26px] flex flex-wrap items-center justify-center gap-1 text-center text-xs leading-[1.6] text-[#7e869f] light:text-[#657087]">
   <%- if controller_name != 'sessions' %>
     <span>Уже есть аккаунт?</span>
-    <%= link_to "Войти", new_session_path(resource_name), class: "text-[#a998ff] transition hover:text-[#c8bdff]" %>
+    <%= link_to "Войти", new_session_path(resource_name), class: "text-[#a998ff] transition hover:text-[#c8bdff] light:text-[#6650c4] light:hover:text-[#4f3aab]" %>
   <% end %>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     <span>Нет аккаунта?</span>
-    <%= link_to "Создать аккаунт", new_registration_path(resource_name), class: "text-[#a998ff] transition hover:text-[#c8bdff]" %>
+    <%= link_to "Создать аккаунт", new_registration_path(resource_name), class: "text-[#a998ff] transition hover:text-[#c8bdff] light:text-[#6650c4] light:hover:text-[#4f3aab]" %>
   <% end %>
 
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-    <%= link_to "Забыли пароль?", new_password_path(resource_name), class: "basis-full mt-1.5 text-[11px] text-[#777f98] transition hover:text-[#c8bdff]" %>
+    <%= link_to "Забыли пароль?", new_password_path(resource_name), class: "basis-full mt-1.5 text-[11px] text-[#777f98] transition hover:text-[#c8bdff] light:text-[#657087] light:hover:text-[#4f3aab]" %>
   <% end %>
 
   <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
