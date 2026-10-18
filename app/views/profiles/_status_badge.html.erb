@@ -1,0 +1,7 @@
+<% labels = { "active" => "В продаже", "sold" => "Продано", "archived" => "В архиве" } %>
+<% classes = {
+  "active" => "border-[#38d8cf]/30 bg-[#38d8cf]/10 text-[#69e5dc]",
+  "sold" => "border-[#ffb45c]/30 bg-[#ffb45c]/10 text-[#ffc982]",
+  "archived" => "border-[#8990aa]/30 bg-[#8990aa]/10 text-[#b8bed0]"
+} %>
+<span class="inline-flex whitespace-nowrap rounded-full border px-2.5 py-1 text-[10px] font-bold <%= classes.fetch(listing.status) %>"><%= labels.fetch(listing.status) %></span>

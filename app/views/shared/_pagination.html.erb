@@ -1,18 +1,20 @@
 <% total_pages = [@listings.total_pages, 1].max %>
 <% current_page = [[params[:page].to_i, 1].max, total_pages].min %>
+<% pagination_path = local_assigns.fetch(:pagination_path, root_path) %>
+<% pagination_url = ->(page) { "#{pagination_path}?#{request.query_parameters.merge(page: page).to_query}" } %>
 <nav class="mt-auto flex items-center justify-center gap-1.5 pt-11" aria-label="Пагинация">
   <% if total_pages == 1 %>
     <span class="grid h-[34px] w-[34px] place-items-center rounded-lg bg-[#292345] text-xs text-[#c8bdff] light:bg-[#eef0ff] light:text-[#7358d8]">1</span>
   <% else %>
-    <%= link_to "‹", root_path(request.query_parameters.merge(page: current_page - 1)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'pointer-events-none opacity-35' if current_page == 1}", aria: { label: "Предыдущая страница" } %>
+    <%= link_to "‹", pagination_url.call(current_page - 1), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'pointer-events-none opacity-35' if current_page == 1}", aria: { label: "Предыдущая страница" } %>
     <% page_numbers = total_pages <= 5 ? (1..total_pages).to_a : [1, 2, 3, "...", total_pages] %>
     <% page_numbers.each do |page_number| %>
       <% if page_number == "..." %>
         <span class="grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] light:text-[#657087]">…</span>
       <% else %>
-        <%= link_to page_number, root_path(request.query_parameters.merge(page: page_number)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'bg-[#292345] text-[#c8bdff] light:bg-[#eef0ff] light:text-[#7358d8]' if page_number == current_page}" %>
+        <%= link_to page_number, pagination_url.call(page_number), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'bg-[#292345] text-[#c8bdff] light:bg-[#eef0ff] light:text-[#7358d8]' if page_number == current_page}" %>
       <% end %>
     <% end %>
-    <%= link_to "›", root_path(request.query_parameters.merge(page: current_page + 1)), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'pointer-events-none opacity-35' if current_page == total_pages}", aria: { label: "Следующая страница" } %>
+    <%= link_to "›", pagination_url.call(current_page + 1), class: "grid h-[34px] w-[34px] place-items-center rounded-lg text-xs text-[#8b93ad] hover:bg-[#292345] hover:text-[#c8bdff] light:hover:bg-[#eef0ff] light:hover:text-[#7358d8] #{'pointer-events-none opacity-35' if current_page == total_pages}", aria: { label: "Следующая страница" } %>
   <% end %>
 </nav>

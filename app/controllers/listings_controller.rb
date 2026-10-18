@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_listing, only: %i[edit update destroy update_status]
 
   def show
@@ -15,8 +16,6 @@ class ListingsController < ApplicationController
 
     if @listing.save
       redirect_to @listing, notice: "Объявление опубликовано"
-    else
-      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,17 +28,13 @@ class ListingsController < ApplicationController
     if @listing.update(listing_params.except(:images))
       attach_new_images
       redirect_to @listing, notice: "Объявление обновлено"
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
   def update_status
     if params[:status].in?(Listing.statuses.keys)
       @listing.update!(status: params[:status])
-      redirect_to @listing, notice: "Статус изменён"
-    else
-      redirect_to @listing, alert: "Неверный статус"
+      redirect_back_or_to @listing, notice: "Статус изменён"
     end
   end
 

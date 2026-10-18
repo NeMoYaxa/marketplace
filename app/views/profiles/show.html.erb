@@ -1,0 +1,75 @@
+<% content_for :title, "Мой профиль — marketplace" %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto w-[calc(100%-28px)] max-w-5xl px-0 pb-20 pt-6 md:w-[calc(100%-48px)] md:pt-8">
+    <nav class="mb-6 flex items-center gap-2 text-xs text-[#8990aa] light:text-[#657087]" aria-label="Хлебные крошки">
+      <%= link_to "Главная", root_path, class: "transition hover:text-[#c8bdff] light:hover:text-[#5f48bd]" %>
+      <span aria-hidden="true">→</span>
+      <span class="text-[#c6cbe0] light:text-[#4e5a72]" aria-current="page">Мой профиль</span>
+    </nav>
+
+    <section class="flex flex-col gap-5 rounded-2xl border border-[#252a40] bg-[#14182a]/80 p-5 shadow-[0_24px_70px_rgba(0,0,0,.16)] sm:flex-row sm:items-center sm:p-7 light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.08)]">
+      <div class="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-3xl font-black text-[#0c1020] sm:h-24 sm:w-24">
+        <%= current_user.name.to_s.first&.upcase || "П" %>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="truncate text-2xl font-bold tracking-[-.03em] text-[#fbfbff] light:text-[#1c2435]"><%= current_user.name %></h1>
+        <p class="mt-2 text-sm text-[#8990aa] light:text-[#657087]"><%= current_user.city.presence || "Город не указан" %></p>
+        <p class="mt-1 text-xs text-[#77819d] light:text-[#657087]">На сайте с <%= l(current_user.created_at, format: "%B %Y") %></p>
+      </div>
+      <%= link_to "Настройки", "/settings", class: "inline-flex min-h-10 items-center justify-center rounded-xl border border-[#3a4160] px-4 text-sm font-semibold text-[#c6cbe0] transition hover:border-[#8c73ff] hover:bg-[#8c73ff]/10 hover:text-white light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#7358d8] light:hover:bg-[#eef0ff] light:hover:text-[#5f48bd]" %>
+    </section>
+
+    <%= turbo_frame_tag "profile_listings", target: "_top" do %>
+      <section class="mt-7 overflow-visible rounded-2xl border border-[#252a40] bg-[#14182a]/80 shadow-[0_24px_70px_rgba(0,0,0,.14)] light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.07)]">
+        <div class="border-b border-[#252a40] px-5 pt-5 light:border-[#e6e9f0] sm:px-7 sm:pt-7">
+          <h2 class="text-xl font-bold text-[#f5f7ff] light:text-[#1c2435]">Мои объявления</h2>
+          <nav class="mt-5 flex gap-5 overflow-x-auto" aria-label="Разделы объявлений">
+            <% { "active" => "Активные", "sold" => "Проданные", "archived" => "Архив" }.each do |status, label| %>
+              <%= link_to profile_path(status: status), data: { turbo_frame: "profile_listings" }, class: "whitespace-nowrap border-b-2 pb-3 text-sm font-semibold transition #{@status == status ? "border-[#8c73ff] text-[#c8bdff] light:text-[#5f48bd]" : "border-transparent text-[#8990aa] hover:text-[#c8cbe0] light:text-[#657087] light:hover:text-[#5f48bd]"}" do %>
+                <%= label %> <span class="ml-1 text-xs opacity-70"><%= @status_counts.fetch(status, 0) %></span>
+              <% end %>
+            <% end %>
+          </nav>
+        </div>
+
+        <% if @listings.present? %>
+          <div class="hidden overflow-x-auto md:block">
+            <table class="w-full min-w-[760px] text-left">
+              <thead class="border-b border-[#252a40] text-[11px] uppercase tracking-[.12em] text-[#77819d] light:border-[#e6e9f0] light:text-[#657087]">
+                <tr>
+                  <th class="px-7 py-4 font-semibold">Объявление</th>
+                  <th class="px-4 py-4 font-semibold">Цена</th>
+                  <th class="px-4 py-4 font-semibold">Статус</th>
+                  <th class="px-7 py-4 text-right font-semibold">Действия</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#252a40] light:divide-[#e6e9f0]">
+                <% @listings.each do |listing| %>
+                  <%= render "listing_row", listing: listing %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid gap-3 p-4 md:hidden">
+            <% @listings.each do |listing| %>
+              <%= render "listing_mobile_card", listing: listing %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="px-5 py-16 text-center sm:px-7">
+            <h3 class="text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">В этом разделе пока нет объявлений</h3>
+            <% if @status == "active" %>
+              <p class="mt-2 text-sm text-[#8990aa] light:text-[#657087]">Разместите объявление, чтобы оно появилось здесь.</p>
+              <%= link_to "Разместить объявление", new_listing_path, class: "mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#8968ff] via-[#5d8bff] to-[#38d8cf] px-5 text-sm font-bold text-white shadow-[0_12px_28px_rgba(104,105,255,.24)] transition hover:-translate-y-0.5 hover:brightness-110" %>
+            <% end %>
+          </div>
+        <% end %>
+
+      </section>
+    <% end %>
+  </main>
+</div>

@@ -1,0 +1,23 @@
+<tr>
+  <td class="px-7 py-4">
+    <div class="flex items-center gap-3">
+      <%= link_to listing_path(listing), class: "grid h-14 w-20 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#1a2034] text-[10px] text-[#7f88a3] light:bg-[#f1f4f9] light:text-[#657087]" do %>
+        <% if listing.images.attached? %>
+          <%= image_tag listing.images.first, alt: listing.title, class: "h-full w-full object-cover" %>
+        <% else %>
+          <span>Нет фото</span>
+        <% end %>
+      <% end %>
+      <%= link_to listing.title, listing_path(listing), class: "max-w-[260px] truncate text-sm font-semibold text-[#eef0fb] transition hover:text-[#c8bdff] light:text-[#1c2435] light:hover:text-[#5f48bd]" %>
+    </div>
+  </td>
+  <td class="px-4 py-4 text-sm font-semibold text-[#f5f7ff] light:text-[#1c2435]"><%= listing.price.present? ? "#{number_with_delimiter(listing.price, delimiter: ' ')} ₽" : "—" %></td>
+  <td class="px-4 py-4"><%= render "status_badge", listing: listing %></td>
+  <td class="px-7 py-4">
+    <div class="flex items-center justify-end gap-2">
+      <%= link_to "Редактировать", edit_listing_path(listing), class: "inline-flex min-h-11 items-center justify-center rounded-xl border-2 border-[#3a4160] px-4 text-sm font-bold text-[#c6cbea] transition hover:border-[#8c73ff] hover:bg-[#8c73ff]/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8c73ff]/40 light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#7358d8] light:hover:bg-[#eef0ff] light:hover:text-[#5f48bd] light:focus:ring-[#8c73ff]/30" %>
+      <%= render "shared/listing_status_menu", listing: listing %>
+      <%= link_to "Удалить", listing_path(listing), data: { turbo_method: :delete, turbo_confirm: "Удалить это объявление?" }, class: "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border-2 border-[#ff6f8c]/55 px-4 text-sm font-bold text-[#ff9db1] transition hover:border-[#ff365f] hover:bg-[#ff365f] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#ff365f]/40 light:border-[#b4234d]/35 light:text-[#b4234d] light:hover:border-[#b4234d] light:hover:bg-[#b4234d] light:hover:text-black light:focus:ring-[#b4234d]/30" %>
+    </div>
+  </td>
+</tr>
