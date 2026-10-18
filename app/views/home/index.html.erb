@@ -6,7 +6,7 @@
   <main class="mx-auto flex min-h-[calc(100vh-78px)] w-[calc(100%-28px)] max-w-[1440px] flex-col px-0 pb-20 pt-10 md:w-[calc(100%-48px)]">
     <section class="grid grid-cols-1 gap-5 rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 md:grid-cols-[1.5fr_1fr_.9fr] md:gap-[22px] light:border-[#dce1eb] light:bg-white">
       <%= render "shared/filter_field", type: :price, label: "Цена, ₽" %>
-      <%= render "shared/filter_field", type: :select, label: "Город", options: ["Все города"] + Array(@cities) %>
+      <%= render "shared/filter_field", type: :select, label: "Город", options: ["Все города"] + major_cities %>
       <%= render "shared/filter_field", type: :select, label: "Сортировка", options: ["По дате"] %>
     </section>
 

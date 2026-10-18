@@ -38,7 +38,7 @@
 
     <div class="grid gap-2">
       <%= f.label :city, "Город", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
-      <%= f.text_field :city, placeholder: "Например, Москва", class: "h-12 w-full rounded-xl border border-[#2d334c] bg-[#090c17]/[.68] px-[15px] text-sm text-[#f6f7ff] outline-none transition focus:border-[#8c73ff] focus:bg-[#0a0e1c]/90 focus:ring-4 focus:ring-[#8c73ff]/[.13] placeholder:text-[#5f667e] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:placeholder:text-[#98a2b5] light:focus:bg-white light:focus:text-[#1c2435]" %>
+      <%= f.select :city, major_cities, { prompt: "Выберите город" }, { class: "h-12 w-full appearance-none rounded-xl border border-[#2d334c] bg-[#090c17]/[.68] px-[15px] text-sm text-[#f6f7ff] outline-none transition focus:border-[#8c73ff] focus:bg-[#0a0e1c]/90 focus:ring-4 focus:ring-[#8c73ff]/[.13] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:focus:bg-white light:focus:text-[#1c2435]" } %>
     </div>
   </div>
 
