@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="bg-[#080b14] text-[#f5f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
   <head>
     <title><%= content_for(:title) || "Marketplace" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -29,7 +29,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="app-body">
+  <body class="app-body min-w-[320px] overflow-x-hidden bg-[#080b14] light:bg-[#f6f8fc]">
     <main class="min-h-screen">
       <%= yield %>
     </main>
