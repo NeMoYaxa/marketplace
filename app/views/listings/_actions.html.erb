@@ -7,9 +7,19 @@
 
   <% if user_signed_in? && (current_user == listing.user || current_user.admin?) %>
     <div class="grid gap-2 sm:grid-cols-2">
-      <button type="button" class="min-h-11 cursor-pointer rounded-xl border-2 border-[#3a4160] px-4 text-sm font-bold text-[#c6cbea] transition hover:border-[#8c73ff] hover:bg-[#8c73ff]/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8c73ff]/40 light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#7358d8] light:hover:bg-[#eef0ff] light:hover:text-[#5f48bd] light:focus:ring-[#8c73ff]/30">Редактировать</button>
-      <button type="button" class="min-h-11 cursor-pointer rounded-xl border-2 border-[#3a4160] px-4 text-sm font-bold text-[#c6cbea] transition hover:border-[#31ddd1] hover:bg-[#31ddd1]/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#31ddd1]/40 light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#159e98] light:hover:bg-[#e9fbfa] light:hover:text-[#08736e] light:focus:ring-[#31ddd1]/30">Изменить статус</button>
+      <%= link_to "Редактировать", edit_listing_path(listing), class: "inline-flex min-h-11 items-center justify-center rounded-xl border-2 border-[#3a4160] px-4 text-sm font-bold text-[#c6cbea] transition hover:border-[#8c73ff] hover:bg-[#8c73ff]/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8c73ff]/40 light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#7358d8] light:hover:bg-[#eef0ff] light:hover:text-[#5f48bd] light:focus:ring-[#8c73ff]/30" %>
+      <div class="relative" data-controller="dropdown">
+        <button type="button" class="min-h-11 w-full cursor-pointer rounded-xl border-2 border-[#3a4160] px-4 text-sm font-bold text-[#c6cbe0] transition hover:border-[#31ddd1] hover:bg-[#31ddd1]/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#31ddd1]/40 light:border-[#d5dce8] light:text-[#59657c] light:hover:border-[#159e98] light:hover:bg-[#e9fbfa] light:hover:text-[#08736e] light:focus:ring-[#31ddd1]/30" data-action="click->dropdown#toggle" aria-haspopup="menu">Изменить статус</button>
+        <div class="absolute right-0 z-20 mt-2 hidden min-w-full rounded-xl border border-[#303750] bg-[#14182a] p-1 shadow-[0_18px_40px_rgba(0,0,0,.28)] light:border-[#dce1eb] light:bg-white" data-dropdown-target="menu">
+          <% { "active" => "В продаже", "sold" => "Продано", "archived" => "В архиве" }.each do |status, label| %>
+            <%= button_to update_status_listing_path(listing), method: :patch, params: { status: status }, class: "flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-semibold text-[#c6cbe0] transition hover:bg-[#252b45] light:text-[#59657c] light:hover:bg-[#eef0ff]", form: { data: { turbo: true } } do %>
+              <span><%= label %></span>
+              <% if listing.status == status %><span aria-hidden="true">✓</span><% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <button type="button" class="min-h-11 cursor-pointer rounded-xl border-2 border-[#ff6f8c]/55 px-4 text-sm font-bold text-[#ff9db1] transition hover:border-[#ff365f] hover:bg-[#ff365f] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#ff365f]/40 light:border-[#b4234d]/35 light:text-[#b4234d] light:hover:border-[#b4234d] light:hover:bg-[#b4234d] light:hover:text-black light:focus:ring-[#b4234d]/30" data-turbo-confirm="Удалить это объявление?">Удалить</button>
+    <%= link_to "Удалить", listing_path(listing), data: { turbo_method: :delete, turbo_confirm: "Удалить это объявление?" }, class: "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border-2 border-[#ff6f8c]/55 px-4 text-sm font-bold text-[#ff9db1] transition hover:border-[#ff365f] hover:bg-[#ff365f] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#ff365f]/40 light:border-[#b4234d]/35 light:text-[#b4234d] light:hover:border-[#b4234d] light:hover:bg-[#b4234d] light:hover:text-black light:focus:ring-[#b4234d]/30" %>
   <% end %>
 </div>

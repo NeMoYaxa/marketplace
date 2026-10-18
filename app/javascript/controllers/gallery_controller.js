@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["image", "counter", "previous", "next", "thumbnails"]
+  static targets = ["image", "counter", "previous", "next", "thumbnails", "modal", "modalImage"]
   static values = { images: Array }
 
   connect() {
@@ -26,6 +26,7 @@ export default class extends Controller {
   }
 
   keydown(event) {
+    if (event.key === "Escape") this.close()
     if (event.key === "ArrowLeft") this.previous()
     if (event.key === "ArrowRight") this.next()
   }
@@ -44,11 +45,29 @@ export default class extends Controller {
   update() {
     if (!this.hasImageTarget) return
     this.imageTarget.src = this.imagesValue[this.index]
+    if (this.hasModalImageTarget) this.modalImageTarget.src = this.imagesValue[this.index]
     this.counterTarget.textContent = `${this.index + 1} / ${this.imagesValue.length}`
     this.previousTarget.disabled = this.index === 0
     this.nextTarget.disabled = this.index === this.imagesValue.length - 1
     this.thumbnailsTarget.querySelectorAll("[data-gallery-index]").forEach((thumbnail, index) => {
       thumbnail.classList.toggle("opacity-60", index !== this.index)
     })
+  }
+
+  open() {
+    if (!this.hasModalTarget) return
+    this.modalTarget.classList.remove("hidden")
+    document.body.classList.add("overflow-hidden")
+  }
+
+  close() {
+    if (!this.hasModalTarget) return
+    this.modalTarget.classList.add("hidden")
+    document.body.classList.remove("overflow-hidden")
+  }
+
+  closeOnBackdrop(event) {
+    if (event.target !== event.currentTarget) return
+    this.close()
   }
 }

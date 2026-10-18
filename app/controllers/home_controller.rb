@@ -2,17 +2,13 @@ class HomeController < ApplicationController
   LISTINGS_PER_PAGE = 12
 
   def index
-    # Демо заглушки
-    listing = Struct.new(:id, :title, :price, :city, :created_at).new(
-      1,
-      "Демонстрационное объявление",
-      12_500,
-      "Москва",
-      3.days.ago
-    )
+    @listings = Listing.active
+                      .with_attached_images
+                      .includes(:category)
+                      .order(created_at: :desc)
+                      .page(params[:page])
+                      .per(LISTINGS_PER_PAGE)
 
-    @listings = [ listing ]
-    @cities = [ listing.city ]
-    @total_pages = [ (@listings.size.to_f / LISTINGS_PER_PAGE).ceil, 1 ].max
+     @cities = Listing.active.where.not(city: [ nil, "" ]).distinct.order(:city).pluck(:city)
   end
 end

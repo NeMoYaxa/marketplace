@@ -22,6 +22,72 @@ body {
   overflow-x: hidden;
 }
 
+.flash {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(420px, calc(100% - 36px));
+  padding: 13px 14px 13px 16px;
+  border: 1px solid;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .22);
+}
+
+.flash-notice {
+  border-color: rgba(56, 216, 207, .35);
+  background: rgba(20, 52, 58, .94);
+  color: #69e5dc;
+}
+
+.flash-alert {
+  border-color: rgba(255, 111, 140, .35);
+  background: rgba(69, 29, 45, .94);
+  color: #ffb5c4;
+}
+
+.flash button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  padding: 0 2px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  opacity: .8;
+}
+
+.flash button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.flash button:hover {
+  opacity: 1;
+}
+
+[data-theme="light"] .flash-notice {
+  border-color: rgba(21, 158, 152, .3);
+  background: #e9fbfa;
+  color: #08736e;
+}
+
+[data-theme="light"] .flash-alert {
+  border-color: rgba(180, 35, 77, .25);
+  background: #fff2f5;
+  color: #9f1d43;
+}
+
 .marketplace-search {
   transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }

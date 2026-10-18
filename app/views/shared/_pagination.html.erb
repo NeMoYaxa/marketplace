@@ -1,4 +1,4 @@
-<% total_pages = [@total_pages.to_i, 1].max %>
+<% total_pages = [@listings.total_pages, 1].max %>
 <% current_page = [[params[:page].to_i, 1].max, total_pages].min %>
 <nav class="mt-auto flex items-center justify-center gap-1.5 pt-11" aria-label="Пагинация">
   <% if total_pages == 1 %>
