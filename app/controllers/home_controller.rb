@@ -8,7 +8,5 @@ class HomeController < ApplicationController
                       .order(created_at: :desc)
                       .page(params[:page])
                       .per(LISTINGS_PER_PAGE)
-
-     #@cities = Listing.active.where.not(city: [ nil, "" ]).distinct.order(:city).pluck(:city)
   end
 end
