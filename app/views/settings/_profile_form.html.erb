@@ -1,0 +1,33 @@
+<%= form_with model: @profile_user, url: settings_path, method: :patch, multipart: true, class: "grid gap-6" do |form| %>
+  <% if @profile_errors.present? %>
+    <div class="rounded-xl border border-[#ff6f8c]/30 bg-[#ff4f75]/[.08] px-4 py-3 text-xs text-[#ffb5c4] light:border-[#b4234d]/25 light:bg-[#fff2f5] light:text-[#9f1d43]" role="alert">
+      <p class="font-bold">Проверьте данные профиля</p>
+      <ul class="mt-1 list-inside list-disc"><% @profile_errors.each { |error| %><li><%= error %></li><% } %></ul>
+    </div>
+  <% end %>
+
+  <%= render "shared/avatar_field", form: form, user: @profile_user %>
+  <div class="grid gap-4 md:grid-cols-2">
+    <% input_class = "h-12 w-full rounded-xl border border-[#2d334c] bg-[#090c17]/[.68] px-[15px] text-sm text-[#f6f7ff] outline-none transition focus:border-[#8c73ff] focus:ring-4 focus:ring-[#8c73ff]/[.13] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:focus:border-[#8c73ff]" %>
+    <div class="grid gap-2">
+      <%= form.label :name, "Имя", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
+      <%= form.text_field :name, class: "#{input_class} #{@profile_user.errors[:name].present? ? "border-[#ff6f8c] light:border-[#b4234d]" : ""}" %>
+      <% @profile_user.errors[:name].each do |error| %><p class="text-xs text-[#ff9db1] light:text-[#9f1d43]"><%= error %></p><% end %>
+    </div>
+    <div class="grid gap-2">
+      <%= form.label :email, "Email", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
+      <%= form.email_field :email, readonly: true, aria: { readonly: true }, class: "#{input_class} cursor-not-allowed opacity-70" %>
+    </div>
+    <div class="grid gap-2">
+      <%= form.label :phone, "Телефон", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
+      <%= form.telephone_field :phone, class: "#{input_class} #{@profile_user.errors[:phone].present? ? "border-[#ff6f8c] light:border-[#b4234d]" : ""}" %>
+      <% @profile_user.errors[:phone].each do |error| %><p class="text-xs text-[#ff9db1] light:text-[#9f1d43]"><%= error %></p><% end %>
+    </div>
+    <div class="grid gap-2">
+      <%= form.label :city, "Город", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
+      <%= form.text_field :city, class: "#{input_class} #{@profile_user.errors[:city].present? ? "border-[#ff6f8c] light:border-[#b4234d]" : ""}" %>
+      <% @profile_user.errors[:city].each do |error| %><p class="text-xs text-[#ff9db1] light:text-[#9f1d43]"><%= error %></p><% end %>
+    </div>
+  </div>
+  <%= form.submit "Сохранить профиль", class: "min-h-[52px] w-full rounded-xl bg-gradient-to-r from-[#8968ff] via-[#5d8bff] to-[#38d8cf] text-sm font-bold text-white shadow-[0_12px_28px_rgba(104,105,255,.24)] transition hover:-translate-y-0.5 hover:brightness-110" %>
+<% end %>

@@ -21,7 +21,7 @@ class ListingsController < ApplicationController
 
   def destroy
     @listing.destroy
-    redirect_to root_path, notice: "Объявление удалено"
+    redirect_back_or_to root_path, notice: "Объявление удалено"
   end
 
   def update

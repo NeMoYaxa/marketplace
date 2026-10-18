@@ -1,0 +1,24 @@
+<% content_for :title, "Настройки — marketplace" %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
+  <%= render "shared/marketplace_header" %>
+  <main class="mx-auto w-[calc(100%-28px)] max-w-3xl px-0 pb-20 pt-6 md:w-[calc(100%-48px)] md:pt-8">
+    <nav class="mb-6 flex items-center gap-2 text-xs text-[#8990aa] light:text-[#657087]" aria-label="Хлебные крошки">
+      <%= link_to "Главная", root_path, class: "hover:text-[#c8bdff] light:hover:text-[#5f48bd]" %><span>→</span>
+      <%= link_to "Мой профиль", profile_path, class: "hover:text-[#c8bdff] light:hover:text-[#5f48bd]" %><span>→</span>
+      <span class="text-[#c6cbe0] light:text-[#4e5a72]" aria-current="page">Настройки</span>
+    </nav>
+    <div class="mb-8">
+      <h1 class="text-[clamp(28px,5vw,38px)] font-bold leading-tight tracking-[-.04em] text-[#fbfbff] light:text-[#1c2435]">Настройки</h1>
+      <p class="mt-3 max-w-xl text-sm leading-6 text-[#8990aa] light:text-[#657087]">Управляйте профилем и безопасностью аккаунта.</p>
+    </div>
+    <section class="rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 shadow-[0_24px_70px_rgba(0,0,0,.2)] sm:p-8 light:border-[#dce1eb] light:bg-white">
+      <h2 class="mb-6 text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">Профиль</h2>
+      <%= render "profile_form" %>
+    </section>
+    <section class="mt-6 rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 shadow-[0_24px_70px_rgba(0,0,0,.2)] sm:p-8 light:border-[#dce1eb] light:bg-white">
+      <h2 class="mb-6 text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">Смена пароля</h2>
+      <%= render "password_form" %>
+    </section>
+  </main>
+</div>

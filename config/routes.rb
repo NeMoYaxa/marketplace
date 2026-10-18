@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root "home#index"
   resource :profile, only: :show
+  resource :settings, only: %i[show update]
+  patch "settings/password", to: "settings#update_password", as: :update_settings_password
   resources :listings, except: :index do
     member do
       patch :update_status

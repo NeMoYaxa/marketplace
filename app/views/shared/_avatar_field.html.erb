@@ -1,0 +1,25 @@
+<div data-controller="avatar" class="flex flex-wrap items-center gap-4">
+  <div class="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-3xl font-black text-[#0c1020]">
+    <% if user.avatar.attached? %>
+      <%= image_tag url_for(user.avatar), class: "h-full w-full object-cover", data: { avatar_target: "preview" }, alt: "Аватар #{user.name}" %>
+      <span class="hidden" data-avatar-target="placeholder"><%= user.name.to_s.first&.upcase || "П" %></span>
+    <% else %>
+      <%= image_tag "", class: "hidden h-full w-full object-cover", data: { avatar_target: "preview" }, alt: "" %>
+      <span data-avatar-target="placeholder"><%= user.name.to_s.first&.upcase || "П" %></span>
+    <% end %>
+  </div>
+  <div class="grid gap-2">
+    <label class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-xl border border-[#3a4160] bg-[#101426] px-3.5 text-xs font-semibold text-[#c6cbea] transition hover:border-[#8c73ff] hover:text-white light:border-[#d5dce8] light:bg-white light:text-[#59657c] light:hover:text-[#5f48bd]">
+      Загрузить фото
+      <%= form.file_field :avatar, accept: "image/jpeg,image/png,image/webp", class: "sr-only", data: { avatar_target: "input", action: "change->avatar#select" } %>
+    </label>
+    <% if user.avatar.attached? %>
+      <label class="flex items-center gap-2 text-xs text-[#8990aa] light:text-[#657087]">
+        <%= check_box_tag :remove_avatar, "1", false, class: "rounded border-[#3a4160] bg-transparent text-[#8c73ff] focus:ring-[#8c73ff]" %>
+        Удалить аватар
+      </label>
+    <% end %>
+    <p class="text-[11px] text-[#77819d] light:text-[#657087]">JPEG, PNG или WebP, до 5 МБ</p>
+    <% user.errors[:avatar].each do |error| %><p class="text-xs text-[#ff9db1] light:text-[#9f1d43]"><%= error %></p><% end %>
+  </div>
+</div>
