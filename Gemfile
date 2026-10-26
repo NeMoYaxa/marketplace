@@ -66,7 +66,7 @@ group :development do
 end
 
 gem "devise", "~> 5.0"
-gem "json", "< 3.0"
+gem "json", "< 4.0"
 gem "tailwindcss-rails"
 gem "rails-i18n"
 gem "kaminari"
