@@ -21,7 +21,7 @@ class ListingsController < ApplicationController
 
   def destroy
     @listing.destroy
-    redirect_back_or_to root_path, notice: "Объявление удалено"
+    redirect_to root_path, notice: "Объявление удалено"
   end
 
   def update
@@ -41,7 +41,7 @@ class ListingsController < ApplicationController
   private
 
   def set_listing
-    @listing = Listing.find(params[:id])
+    @listing = current_user.listings.find(params[:id])
   end
 
   def listing_params
