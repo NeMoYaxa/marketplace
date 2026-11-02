@@ -1,0 +1,38 @@
+<% content_for :title, "Избранное — marketplace" %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto w-[calc(100%-28px)] max-w-[1440px] px-0 pb-20 pt-6 md:w-[calc(100%-48px)] md:pt-8">
+    <nav class="mb-6 flex items-center gap-2 text-xs text-[#8990aa] light:text-[#657087]" aria-label="Хлебные крошки">
+      <%= link_to "Главная", root_path, class: "transition hover:text-[#c8bdff] light:hover:text-[#5f48bd]" %>
+      <span aria-hidden="true">→</span>
+      <span class="text-[#c6cbe0] light:text-[#4e5a72]" aria-current="page">Избранное</span>
+    </nav>
+
+    <section class="rounded-2xl border border-[#252a40] bg-[#14182a]/80 p-5 shadow-[0_24px_70px_rgba(0,0,0,.16)] light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.08)] sm:p-7">
+      <h1 class="text-2xl font-bold tracking-[-.03em] text-[#fbfbff] light:text-[#1c2435]">Избранное</h1>
+
+      <%= turbo_frame_tag "favorites_listings" do %>
+        <% if @listings.present? %>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6" aria-label="Избранные объявления">
+            <% @listings.each do |listing| %>
+              <%= render "shared/listing_card", listing: listing, remove_button: true %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="flex flex-col items-center py-16 text-center">
+            <svg class="h-12 w-12 text-[#8c73ff] light:text-[#7358d8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M20.8 8.8c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"></path>
+            </svg>
+            <h2 class="mt-4 text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">В избранном пока ничего нет</h2>
+            <p class="mt-2 text-sm text-[#8990aa] light:text-[#657087]">Нажимайте на сердечко в объявлении, чтобы сохранить его здесь</p>
+            <%= link_to "К объявлениям", root_path, data: { turbo_frame: "_top" }, class: "mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#8968ff] via-[#5d8bff] to-[#38d8cf] px-5 text-sm font-bold text-white shadow-[0_12px_28px_rgba(104,105,255,.24)] transition hover:-translate-y-0.5 hover:brightness-110" %>
+          </div>
+        <% end %>
+      <% end %>
+    </section>
+
+    <%= render "shared/pagination" %>
+  </main>
+</div>

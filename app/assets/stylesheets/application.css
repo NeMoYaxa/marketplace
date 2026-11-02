@@ -139,3 +139,6 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+.comments-list:has(> *) + .comments-empty {
+  display: none;
+}

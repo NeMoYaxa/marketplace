@@ -17,6 +17,7 @@ RSpec.describe "Гостевой доступ", type: :system do
   end
 
   describe "защищённые страницы" do
+    # добавть на path
     it "перенаправляет гостя на вход" do
       [ new_listing_path, profile_path, settings_path ].each do |path|
         visit path
@@ -40,7 +41,7 @@ RSpec.describe "Гостевой доступ", type: :system do
       expect(page).to have_content("Новый пользователь")
       expect(User.find_by(email: "new-user@example.com")).to be_present
     end
-
+    
     it "выполняет вход существующего пользователя" do
       user = create(:user, email: "login@example.com", password: "password123")
 

@@ -7,6 +7,10 @@
     <meta name="application-name" content="Marketplace">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
+    <% if user_signed_in? %>
+      <meta name="current-user-id" content="<%= current_user.id %>">
+      <meta name="current-user-admin" content="<%= current_user.admin? %>">
+    <% end %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>

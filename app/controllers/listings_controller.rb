@@ -1,10 +1,11 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
   before_action :set_listing, only: %i[edit update destroy update_status]
 
   def show
     @listing = Listing.with_attached_images.includes(:user, :category).find(params[:id])
-    @favorite = nil
+    @favorite = current_user&.favorites&.find_by(listing: @listing)
+    @comment = Comment.new
   end
 
   def new
@@ -57,3 +58,6 @@ class ListingsController < ApplicationController
     end
   end
 end
+
+
+    # добавить отдельные запросы на бек http

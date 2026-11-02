@@ -2,6 +2,7 @@ class Listing < ApplicationRecord
   belongs_to :user
   belongs_to :category
   has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many_attached :images
 
   enum :status, { active: 0, sold: 1, archived: 2 }

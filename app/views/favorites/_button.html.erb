@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(listing, :favorite) do %>
+  <% if user_signed_in? %>
+    <%= form_with url: listing_favorite_path(listing), method: favorite ? :delete : :post, class: "grid gap-2" do %>
+      <%= submit_tag favorite ? "В избранном" : "В избранное", class: "min-h-12 w-full rounded-xl bg-gradient-to-r from-[#8968ff] via-[#5d8bff] to-[#38d8cf] px-4 text-sm font-bold text-white shadow-[0_12px_28px_rgba(104,105,255,.24)] transition hover:-translate-y-0.5 hover:brightness-110" %>
+    <% end %>
+  <% else %>
+    <%= link_to(favorite ? "В избранном" : "В избранное", new_user_session_path, data: { turbo_frame: "_top" }, class: "inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#8968ff] via-[#5d8bff] to-[#38d8cf] px-4 text-sm font-bold text-white shadow-[0_12px_28px_rgba(104,105,255,.24)] transition hover:-translate-y-0.5 hover:brightness-110") %>
+  <% end %>
+<% end %>

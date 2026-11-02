@@ -1,0 +1,11 @@
+<% remove_button = local_assigns.fetch(:remove_button, false) %>
+<%= turbo_frame_tag dom_id(listing, :card_favorite), class: "absolute right-2.5 top-2.5 z-20 h-8 w-8" do %>
+  <% if user_signed_in? %>
+    <%= form_with url: listing_favorite_path(listing), method: favorite ? :delete : :post, class: "h-8 w-8" do %>
+      <%= hidden_field_tag :from, "favorites" if remove_button %>
+      <%= button_tag favorite ? "♥" : "♡", type: "submit", class: "grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-[#080b14]/65 text-xl text-white transition hover:border-[#8c73ff] light:border-[#dce1eb] light:bg-white light:text-[#7358d8] light:hover:border-[#8c73ff]", aria: { label: favorite ? "Убрать из избранного" : "Добавить в избранное" } %>
+    <% end %>
+  <% else %>
+    <%= link_to "♡", new_user_session_path, data: { turbo_frame: "_top" }, class: "grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-[#080b14]/65 text-xl text-white transition hover:border-[#8c73ff] light:border-[#dce1eb] light:bg-white light:text-[#7358d8] light:hover:border-[#8c73ff]", aria: { label: "Добавить в избранное" } %>
+  <% end %>
+<% end %>

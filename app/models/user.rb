@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :listings, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_listings, through: :favorites, source: :listing
+  has_many :comments, dependent: :destroy
   has_one_attached :avatar
 
   enum :role, { user: 0, admin: 1 }

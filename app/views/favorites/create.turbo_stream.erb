@@ -1,0 +1,10 @@
+<%= turbo_stream.replace(
+  dom_id(@listing, :card_favorite),
+  partial: "favorites/card_button",
+  locals: { listing: @listing, favorite: true, remove_button: false }
+) %>
+<%= turbo_stream.replace(
+  dom_id(@listing, :favorite),
+  partial: "favorites/button",
+  locals: { listing: @listing, favorite: true }
+) %>

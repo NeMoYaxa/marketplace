@@ -1,0 +1,11 @@
+<article id="<%= dom_id(comment) %>" class="flex gap-3" data-controller="comment-actions" data-author-id="<%= comment.user_id %>">
+  <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#a178ff] to-[#31ddd1] text-sm font-black text-[#0c1020]"><%= comment.user.name.to_s.first&.upcase || "П" %></span>
+  <div class="min-w-0 flex-1">
+    <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+      <strong class="text-sm text-[#f5f7ff] light:text-[#1c2435]"><%= comment.user.name %></strong>
+      <time datetime="<%= comment.created_at.iso8601 %>" data-controller="local-time" class="text-xs text-[#8990aa] light:text-[#657087]"><%= l(comment.created_at, format: :short) %></time>
+    </div>
+    <p class="mt-2 whitespace-pre-line break-words text-sm leading-6 text-[#b5bbce] light:text-[#59657c]"><%= comment.body %></p>
+    <%= button_to "Удалить", listing_comment_path(comment.listing, comment), method: :delete, data: { comment_actions_target: "deleteButton" }, class: "mt-2 hidden text-xs font-bold text-[#ff9db1] hover:text-[#ff6f8c] light:text-[#b4234d]" %>
+  </div>
+</article>

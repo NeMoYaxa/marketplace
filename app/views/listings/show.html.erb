@@ -43,5 +43,20 @@
       <h2 class="text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">Описание</h2>
       <p class="mt-4 whitespace-pre-line break-words text-sm leading-7 text-[#b5bbce] light:text-[#59657c]"><%= @listing.description.presence || "Продавец не добавил описание" %></p>
     </section>
+
+    <%= turbo_stream_from @listing, :comments %>
+    <%= turbo_stream_from @listing, :favorites %>
+    <section class="mt-7 rounded-2xl border border-[#252a40] bg-[#14182a]/80 p-5 shadow-[0_24px_70px_rgba(0,0,0,.15)] sm:p-7 light:border-[#dce1eb] light:bg-white light:shadow-[0_20px_55px_rgba(45,58,90,.08)]">
+      <h2 class="text-lg font-bold text-[#f5f7ff] light:text-[#1c2435]">Комментарии (<span id="<%= dom_id(@listing, :comments_count) %>"><%= @listing.comments.count %></span>)</h2>
+      <div id="<%= dom_id(@listing, :comments_list) %>" class="comments-list mt-5 grid gap-5"><%= render @listing.comments.includes(:user).order(created_at: :desc) %></div>
+      <p class="comments-empty text-sm text-[#8990aa] light:text-[#657087]">Пока нет комментариев</p>
+      <%= turbo_frame_tag dom_id(@listing, :comment_form) do %>
+        <% if user_signed_in? %>
+          <%= render "comments/form", listing: @listing, comment: @comment %>
+        <% else %>
+          <%= link_to "Войдите, чтобы комментировать", new_user_session_path, data: { turbo_frame: "_top" }, class: "mt-6 inline-flex text-sm font-bold text-[#bcaeff] hover:text-white light:text-[#5f48bd] light:hover:text-[#7358d8]" %>
+        <% end %>
+      <% end %>
+    </section>
   </main>
 </div>
