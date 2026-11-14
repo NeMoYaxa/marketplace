@@ -1,6 +1,6 @@
 <article id="<%= dom_id(listing, :favorite_card) %>" class="listing-card overflow-hidden rounded-[15px] border border-[#252a40] bg-[#121628] transition hover:-translate-y-1 hover:border-[#6556a8] light:border-[#dce1eb] light:bg-white light:hover:border-[#6556a8]">
   <div class="relative">
-    <a href="<%= listing_path(listing) %>" class="block">
+    <a href="<%= listing_path(listing) %>" class="block" data-turbo-frame="_top">
       <div class="relative grid h-[174px] place-items-center overflow-hidden bg-[#1a2034] text-xs text-[#7f88a3] light:bg-[#f1f4f9] light:text-[#657087]">
       <% if listing.respond_to?(:images) && listing.images.attached? %>
         <%= image_tag listing.images.first, alt: listing.title, class: "h-full w-full object-cover" %>

@@ -41,7 +41,7 @@ RSpec.describe "Гостевой доступ", type: :system do
       expect(page).to have_content("Новый пользователь")
       expect(User.find_by(email: "new-user@example.com")).to be_present
     end
-    
+
     it "выполняет вход существующего пользователя" do
       user = create(:user, email: "login@example.com", password: "password123")
 

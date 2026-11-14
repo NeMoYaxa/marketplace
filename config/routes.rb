@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :favorites, only: :index
   resource :settings, only: %i[show update]
   patch "settings/password", to: "settings#update_password", as: :update_settings_password
-  resources :listings, except: :index do
+  resources :listings do
     resources :comments, only: %i[create destroy]
     resource :favorite, only: %i[create destroy]
     member do

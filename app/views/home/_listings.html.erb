@@ -1,0 +1,53 @@
+<% content_for :title, "Список объявлений — marketplace" %>
+
+<div class="min-h-screen bg-[radial-gradient(circle_at_8%_0,rgba(112,78,255,.12),transparent_25%),#080b14] text-[#f6f7ff] light:bg-[#f6f8fc] light:text-[#1c2435]">
+  <%= render "shared/marketplace_header" %>
+
+  <main class="mx-auto flex min-h-[calc(100vh-78px)] w-[calc(100%-28px)] max-w-[1440px] flex-col px-0 pb-20 pt-10 md:w-[calc(100%-48px)]">
+    <turbo-frame id="listings">
+      <%= form_with url: listings_path, method: :get, data: { controller: "filters" } do |form| %>
+        <%= form.hidden_field :query, value: params[:query] if params[:query].present? %>
+        <section class="grid grid-cols-1 gap-5 rounded-2xl border border-[#252a40] bg-[#14182a]/70 p-5 md:grid-cols-[1.5fr_1fr_.9fr] md:gap-[22px] light:border-[#dce1eb] light:bg-white">
+          <%= render "shared/filter_field", type: :price, label: "Цена, ₽" %>
+          <%= render "shared/filter_field", type: :select, name: :city, label: "Город",
+                     options: [["Все города", ""]] + major_cities.map { |city| [city, city] } %>
+          <%= render "shared/filter_field", type: :select, name: :sort, label: "Сортировка",
+                     options: [["По дате", "date"], ["Сначала дешёвые", "price_asc"], ["Сначала дорогие", "price_desc"]] %>
+        </section>
+      <% end %>
+
+      <div class="flex min-h-[52px] items-center gap-2" aria-label="Активные фильтры">
+        <% sort_labels = { "date" => "По дате", "price_asc" => "Сначала дешёвые", "price_desc" => "Сначала дорогие" } %>
+        <% if params[:query].present? %>
+          <%= link_to root_path(request.query_parameters.except("query", "page")), class: "cursor-pointer rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff] light:bg-[#eef0ff] light:text-[#7358d8]", aria: { label: "Убрать фильтр" }, data: { turbo_frame: "listings", turbo_action: "advance" } do %>
+            «<%= params[:query] %>» ×
+          <% end %>
+        <% end %>
+        <% if params[:min_price].present? %>
+          <%= link_to root_path(request.query_parameters.except("min_price", "page")), class: "cursor-pointer rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]", aria: { label: "Убрать фильтр" }, data: { turbo_frame: "listings", turbo_action: "advance" } do %>
+            от <%= params[:min_price] %> ₽ ×
+          <% end %>
+        <% end %>
+        <% if params[:max_price].present? %>
+          <%= link_to root_path(request.query_parameters.except("max_price", "page")), class: "cursor-pointer rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]", aria: { label: "Убрать фильтр" }, data: { turbo_frame: "listings", turbo_action: "advance" } do %>
+            до <%= params[:max_price] %> ₽ ×
+          <% end %>
+        <% end %>
+        <% if params[:city].present? %>
+          <%= link_to root_path(request.query_parameters.except("city", "page")), class: "cursor-pointer rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]", aria: { label: "Убрать фильтр" }, data: { turbo_frame: "listings", turbo_action: "advance" } do %>
+            <%= params[:city] %> ×
+          <% end %>
+        <% end %>
+        <% if params[:sort].present? %>
+          <%= link_to root_path(request.query_parameters.except("sort", "page")), class: "cursor-pointer rounded-md border border-[#8e74ff]/35 bg-[#8567ff]/10 px-2 py-1.5 text-[11px] text-[#bcaeff]", aria: { label: "Убрать фильтр" }, data: { turbo_frame: "listings", turbo_action: "advance" } do %>
+            <%= sort_labels.fetch(params[:sort].to_s, params[:sort]) %> ×
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= render "shared/listings_grid", listings: @listings %>
+
+      <%= render "shared/pagination" %>
+    </turbo-frame>
+  </main>
+</div>

@@ -3,21 +3,25 @@
     <span class="mb-2.5 block text-[11px] font-bold text-[#8d95ad] light:text-[#657087]"><%= label %></span>
     <div class="flex items-center gap-2">
       <span class="flex-1">
-        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:placeholder:text-[#8b95a8]" type="text" placeholder="Мин." aria-label="Минимальная цена">
+        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:placeholder:text-[#8b95a8]" type="number" name="min_price" value="<%= params[:min_price] %>" placeholder="Мин." aria-label="Минимальная цена" data-filters-target="price" data-action="input->filters#priceChanged">
       </span>
       <span>—</span>
       <span class="flex-1">
-        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:placeholder:text-[#8b95a8]" type="text" placeholder="Макс." aria-label="Максимальная цена">
+        <input class="h-10 w-full rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none placeholder:text-[#68718b] focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:placeholder:text-[#8b95a8]" type="number" name="max_price" value="<%= params[:max_price] %>" placeholder="Макс." aria-label="Максимальная цена" data-filters-target="price" data-action="input->filters#priceChanged">
       </span>
     </div>
   </div>
 <% else %>
+  <% select_options = if name.to_sym == :sort
+                        [["Без сортировки", ""], ["По дате", "date"], ["Сначала дешёвые", "price_asc"], ["Сначала дорогие", "price_desc"]]
+                      elsif name.to_sym == :city
+                        [["Все города", ""]] + major_cities.map { |city| [city, city] }
+                      else
+                        options
+                      end %>
+  <% select_options = select_options.map { |option| [option[0], option[1], { class: "bg-[#101426] text-[#e9ebf7] light:bg-white light:text-[#1c2435]" }] } %>
   <label>
     <span class="mb-2.5 block text-[11px] font-bold text-[#8d95ad] light:text-[#657087]"><%= label %></span>
-    <select class="h-10 w-full appearance-none rounded-[9px] border border-[#30364f] bg-[#101426] px-3 text-xs text-[#e9ebf7] outline-none focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435]" aria-label="<%= label %>">
-      <% options.each do |option| %>
-        <option><%= option %></option>
-      <% end %>
-    </select>
+    <%= select_tag name, options_for_select(select_options, params[name.to_s]), class: "h-10 w-full appearance-none rounded-[9px] border border-[#30364f] bg-[#101426] bg-no-repeat bg-[position:right_0.75rem_center] px-3 pr-10 text-xs text-[#e9ebf7] [color-scheme:dark] outline-none focus:border-[#8c73ff] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:[color-scheme:light]", style: "background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aeb7d0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")", aria: { label: label }, data: { action: "change->filters#submit" } %>
   </label>
 <% end %>

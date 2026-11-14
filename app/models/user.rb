@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: 4, maximum: 50 }
   validates :phone, format: { with: /\A\+?\d{10,15}\z/ }, allow_blank: true
+  validates :city, inclusion: { in: Listing::CITIES }, allow_blank: true, if: :city_changed?
   validate :avatar_format
 
   private

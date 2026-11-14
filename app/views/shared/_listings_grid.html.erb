@@ -1,0 +1,11 @@
+<% if listings.present? %>
+  <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6" aria-label="Объявления">
+    <%= render partial: "shared/listing_card", collection: listings, as: :listing %>
+  </section>
+<% else %>
+  <section class="rounded-2xl border border-dashed border-[#303750] p-16 text-center light:border-[#dce1eb]">
+    <h2 class="text-[22px]">Ничего не найдено</h2>
+    <p class="my-2.5 mb-[22px] text-[13px] text-[#858da7] light:text-[#657087]">Попробуйте изменить параметры поиска или сбросить фильтры.</p>
+    <%= render "shared/button", text: "Сбросить фильтры", url: root_path, variant: :secondary %>
+  </section>
+<% end %>

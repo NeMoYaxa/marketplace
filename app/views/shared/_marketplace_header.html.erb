@@ -6,13 +6,17 @@
       <span class="relative z-10 hidden sm:inline">marketplace</span>
     </a>
 
-    <form class="marketplace-search order-3 flex h-11 min-w-0 basis-full items-center gap-2.5 rounded-xl border border-[#292e45] bg-[#090c17]/70 px-3 transition focus-within:border-[#8c73ff] focus-within:bg-[rgba(10,14,28,.9)] focus-within:shadow-[0_12px_28px_rgba(104,105,255,.24),0_0_0_4px_rgba(140,115,255,.13)] md:order-none md:ml-auto md:basis-auto md:w-[min(100%,560px)] light:border-[#dce1eb] light:bg-white light:hover:border-[#4a5274] light:focus-within:border-[#8c73ff] light:focus-within:bg-white light:focus-within:shadow-[0_12px_28px_rgba(104,105,255,.16),0_0_0_4px_rgba(140,115,255,.13)]" action="/" method="get" role="search">
+    <%= form_with url: listings_path, method: :get, class: "marketplace-search order-3 flex h-11 min-w-0 basis-full items-center gap-2.5 rounded-xl border border-[#292e45] bg-[#090c17]/70 px-3 transition focus-within:border-[#8c73ff] focus-within:bg-[rgba(10,14,28,.9)] focus-within:shadow-[0_12px_28px_rgba(104,105,255,.24),0_0_0_4px_rgba(140,115,255,.13)] md:order-none md:ml-auto md:basis-auto md:w-[min(100%,560px)] light:border-[#dce1eb] light:bg-white light:hover:border-[#4a5274] light:focus-within:border-[#8c73ff] light:focus-within:bg-white light:focus-within:shadow-[0_12px_28px_rgba(104,105,255,.16),0_0_0_4px_rgba(140,115,255,.13)]", role: "search" do |form| %>
+      <%= form.hidden_field :min_price, value: params[:min_price] %>
+      <%= form.hidden_field :max_price, value: params[:max_price] %>
+      <%= form.hidden_field :city, value: params[:city] %>
+      <%= form.hidden_field :sort, value: params[:sort] %>
       <svg class="h-5 w-5 shrink-0 text-[#b2a4ff] drop-shadow-[0_0_5px_rgba(156,140,255,0.28)]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="10.8" cy="10.8" r="6.4" stroke="currentColor" stroke-width="2"></circle>
         <path d="m15.6 15.6 5 5" stroke="#59d8d0" stroke-width="2.2" stroke-linecap="round"></path>
       </svg>
-      <input class="min-w-0 flex-1 border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-[#68718b] light:text-[#1c2435] light:placeholder:text-[#8b95a8]" type="search" name="query" value="<%= params[:query] %>" placeholder="Поиск по объявлениям" aria-label="Поиск по заголовку и описанию">
-    </form>
+      <%= form.search_field :query, class: "min-w-0 flex-1 border-0 bg-transparent text-[13px] text-white outline-none placeholder:text-[#68718b] light:text-[#1c2435] light:placeholder:text-[#8b95a8]", value: params[:query], placeholder: "Поиск по объявлениям", aria: { label: "Поиск по заголовку и описанию" } %>
+    <% end %>
 
     <nav class="ml-auto flex shrink-0 items-center gap-5 whitespace-nowrap" aria-label="Основная навигация">
       <% if user_signed_in? %>

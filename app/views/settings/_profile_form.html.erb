@@ -25,7 +25,10 @@
     </div>
     <div class="grid gap-2">
       <%= form.label :city, "Город", class: "text-[13px] font-semibold text-[#c6cbe0] light:text-[#4e5a72]" %>
-      <%= form.text_field :city, class: "#{input_class} #{@profile_user.errors[:city].present? ? "border-[#ff6f8c] light:border-[#b4234d]" : ""}" %>
+      <% cities = Listing::CITIES.dup %>
+      <% cities.unshift(@profile_user.city) if @profile_user.city.present? && !cities.include?(@profile_user.city) %>
+      <% cities = cities.map { |city| [city, city, { class: "bg-[#101426] text-[#e9ebf7] light:bg-white light:text-[#1c2435]" }] } %>
+      <%= form.select :city, cities, { include_blank: "Выберите город" }, { class: "h-12 w-full appearance-none rounded-xl border border-[#2d334c] bg-[#101426] px-[15px] text-sm text-[#e9ebf7] [color-scheme:dark] outline-none transition focus:border-[#8c73ff] focus:ring-4 focus:ring-[#8c73ff]/[.13] light:border-[#d5dce8] light:bg-white light:text-[#1c2435] light:[color-scheme:light] #{@profile_user.errors[:city].present? ? "border-[#ff6f8c] light:border-[#b4234d]" : ""}" } %>
       <% @profile_user.errors[:city].each do |error| %><p class="text-xs text-[#ff9db1] light:text-[#9f1d43]"><%= error %></p><% end %>
     </div>
   </div>

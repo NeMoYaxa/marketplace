@@ -13,7 +13,7 @@ RSpec.describe "Настройки пользователя", type: :system do
   it "обновляет имя, телефон и город" do
     fill_in "Имя", with: "Новое имя"
     fill_in "Телефон", with: "+79998887766"
-    fill_in "Город", with: "Казань"  # Надо изменить самое поле города на список и справить на select
+    select "Казань", from: "Город"
     click_button "Сохранить профиль"
 
     expect(page).to have_content("Профиль обновлён")
